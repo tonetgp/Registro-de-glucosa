@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Glucosa en Sangre e Insulina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f2f2f2;
+        }
+        .container {
+            text-align: center;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Glucosa en Sangre e Insulina</h1>
+        <input type="date" id="fecha" required>
+        <input type="time" id="hora" required>
+        <select id="accion">
+            <option value="Antes de comer">Antes de comer</option>
+            <option value="Después de comer">Después de comer</option>
+            <option value="Postpandrial">Postpandrial</option>
+        </select>
+        <input type="number" id="valorGlucosa" placeholder="Valor de glucosa" required>
+        <input type="number" id="unidadesInsulina" placeholder="Unidades de insulina" required>
+        <input type="text" id="descripcion" placeholder="Descripción">
+        <button onclick="anadirRegistro()">Añadir Registro</button>
+
+        <table id="tablaRegistros">
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acción</th>
+                <th>Valor de Glucosa</th>
+                <th>Unidades de Insulina</th>
+                <th>Descripción</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', cargarRegistros);
+
+        function anadirRegistro() {
+            var registro = {
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value,
+                accion: document.getElementById('accion').value,
+                valorGlucosa: document.getElementById('valorGlucosa').value,
+                unidadesInsulina: document.getElementById('unidadesInsulina').value,
+                descripcion: document.getElementById('descripcion').value
+            };
+
+            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
+            registros.push(registro);
+            localStorage.setItem('registrosGlucosa', JSON.stringify(registros));
+
+            actualizarTabla();
+            limpiarFormulario();
+        }
+
+        function cargarRegistros() {
+            actualizarTabla();
+        }
+
+        function actualizarTabla() {
+            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
+            var tabla = document.getElementById('tablaRegistros');
+            tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th></tr>';
+            registros.forEach(function(registro) {
+                var fila = tabla.insertRow();
+                fila.insertCell(0).innerHTML = registro.fecha;
+                fila.insertCell(1).innerHTML = registro.hora;
+                fila.insertCell(2).innerHTML = registro.accion;
+                fila.insertCell(3).innerHTML = registro.valorGlucosa;
+                fila.insertCell(4).innerHTML = registro.unidadesInsulina;
+                fila.insertCell(5).innerHTML = registro.descripcion;
+            });
+        }
+
+        function limpiarFormulario() {
+            document.getElementById('fecha').value = '';
+            document.getElementById('hora').value = '';
+            document.getElementById('valorGlucosa').value = '';
+            document.getElementById('unidadesInsulina').value = '';
+            document.getElementById('descripcion').value = '';
+        }
+    </script>
+</body>
+</html>
