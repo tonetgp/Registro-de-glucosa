@@ -4,8 +4,8 @@
     <title>Registro de Glucosa en Sangre e Insulina</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -15,14 +15,15 @@
             min-height: 100vh;
         }
         h1 {
-            color: #4a86e8;
+            color: #5a8dee;
+            text-align: center;
         }
         .container {
             background-color: #ffffff;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 700px;
             margin: auto;
         }
         table {
@@ -34,47 +35,72 @@
             border: 1px solid #ddd;
         }
         th, td {
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
         th {
             background-color: #e7eff6;
+            color: #333;
         }
         button {
-            background-color: #4a86e8;
+            background-color: #5a8dee;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #3d6db5;
+            background-color: #4a7cd8;
         }
         input, select {
             padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
+            margin: 10px 0;
+            border-radius: 6px;
             border: 1px solid #ddd;
+            width: calc(100% - 22px);
         }
-        input[type="date"], input[type="time"], input[type="number"], select {
-            width: calc(50% - 10px);
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Registro de Glucosa en Sangre e Insulina</h1>
-        <input type="date" id="fecha" required>
-        <input type="time" id="hora" required>
-        <select id="accion">
-            <option value="Preprandial">Preprandial</option>
-            <option value="Posprandial">Posprandial</option>
-        </select>
-        <input type="number" id="valorGlucosa" placeholder="Valor de glucosa" required>
-        <input type="number" id="unidadesInsulina" placeholder="Unidades de insulina" required>
-        <input type="text" id="descripcion" placeholder="Descripción">
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" required>
+        </div>
+        <div class="form-group">
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" required>
+        </div>
+        <div class="form-group">
+            <label for="accion">Acción:</label>
+            <select id="accion">
+                <option value="Preprandial">Preprandial</option>
+                <option value="Posprandial">Posprandial</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valorGlucosa">Valor de Glucosa:</label>
+            <input type="number" id="valorGlucosa" placeholder="Valor de glucosa" required>
+        </div>
+        <div class="form-group">
+            <label for="unidadesInsulina">Unidades de Insulina:</label>
+            <input type="number" id="unidadesInsulina" placeholder="Unidades de insulina" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" placeholder="Descripción">
+        </div>
         <button onclick="anadirRegistro()">Añadir Registro</button>
 
         <table id="tablaRegistros">
@@ -90,52 +116,8 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', cargarRegistros);
-
-        function anadirRegistro() {
-            var registro = {
-                fecha: document.getElementById('fecha').value,
-                hora: document.getElementById('hora').value,
-                accion: document.getElementById('accion').value,
-                valorGlucosa: document.getElementById('valorGlucosa').value,
-                unidadesInsulina: document.getElementById('unidadesInsulina').value,
-                descripcion: document.getElementById('descripcion').value
-            };
-
-            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
-            registros.push(registro);
-            localStorage.setItem('registrosGlucosa', JSON.stringify(registros));
-
-            actualizarTabla();
-            limpiarFormulario();
-        }
-
-        function cargarRegistros() {
-            actualizarTabla();
-        }
-
-        function actualizarTabla() {
-            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
-            var tabla = document.getElementById('tablaRegistros');
-            tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th></tr>';
-            registros.forEach(function(registro) {
-                var fila = tabla.insertRow();
-                fila.insertCell(0).innerHTML = registro.fecha;
-                fila.insertCell(1).innerHTML = registro.hora;
-                fila.insertCell(2).innerHTML = registro.accion;
-                fila.insertCell(3).innerHTML = registro.valorGlucosa;
-                fila.insertCell(4).innerHTML = registro.unidadesInsulina;
-                fila.insertCell(5).innerHTML = registro.descripcion;
-            });
-        }
-
-        function limpiarFormulario() {
-            document.getElementById('fecha').value = '';
-            document.getElementById('hora').value = '';
-            document.getElementById('valorGlucosa').value = '';
-            document.getElementById('unidadesInsulina').value = '';
-            document.getElementById('descripcion').value = '';
-        }
+        // Tu código JavaScript aquí
     </script>
 </body>
 </html>
+
