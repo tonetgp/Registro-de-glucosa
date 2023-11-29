@@ -2,16 +2,7 @@
 <html>
 <head>
     <title>Registro de Glucosa en Sangre e Insulina</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#5a6f8c">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Registro Diabetes">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
     <style>
-        /* Tus estilos aquí */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #e6f2e6; /* Fondo en tono verde claro */
@@ -34,8 +25,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             max-width: 700px;
             margin: auto;
-            width: 100%;
-            box-sizing: border-box;
         }
         table {
             width: 100%;
@@ -72,7 +61,6 @@
             border-radius: 6px;
             border: 1px solid #ddd;
             width: calc(100% - 22px);
-            box-sizing: border-box;
         }
         .form-group {
             margin-bottom: 15px;
@@ -124,6 +112,7 @@
                 <th>Unidades de Insulina</th>
                 <th>Descripción</th>
             </tr>
+            <!-- Los registros se insertarán aquí -->
         </table>
     </div>
 
@@ -155,10 +144,12 @@
         function actualizarTabla() {
             var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
             var tabla = document.getElementById('tablaRegistros');
+            // Limpiar la tabla, excepto el encabezado
             tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th></tr>';
 
-            registros.forEach(function(registro, index) {
-                var fila = tabla.insertRow(index + 1); // Inserta la fila en la posición correcta
+            // Insertar cada registro en la parte superior de la tabla
+            registros.forEach(function(registro) {
+                var fila = tabla.insertRow(1); // Inserta la fila después del encabezado
                 fila.insertCell(0).innerHTML = registro.fecha;
                 fila.insertCell(1).innerHTML = registro.hora;
                 fila.insertCell(2).innerHTML = registro.accion;
