@@ -2,6 +2,14 @@
 <html>
 <head>
     <title>Registro de Glucosa en Sangre e Insulina</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#5a6f8c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Registro Diabetes">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
     <style>
         /* Tus estilos aquí */
         body {
@@ -27,13 +35,54 @@
             max-width: 700px;
             margin: auto;
         }
-        /* Resto de tus estilos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #a9dfbf; /* Verde claro para los encabezados de la tabla */
+            color: #333;
+        }
+        button {
+            background-color: #28a745; /* Verde botella para los botones */
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838; /* Un verde más oscuro al pasar el ratón */
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            width: calc(100% - 22px);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Registro de Glucosa en Sangre e Insulina</h1>
-        <!-- Tus elementos de formulario aquí -->
         <div class="form-group">
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" required>
