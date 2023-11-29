@@ -34,6 +34,33 @@
     <div class="container">
         <h1>Registro de Glucosa en Sangre e Insulina</h1>
         <!-- Tus elementos de formulario aquí -->
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" required>
+        </div>
+        <div class="form-group">
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" required>
+        </div>
+        <div class="form-group">
+            <label for="accion">Acción:</label>
+            <select id="accion">
+                <option value="Preprandial">Preprandial</option>
+                <option value="Posprandial">Posprandial</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valorGlucosa">Valor de Glucosa:</label>
+            <input type="number" id="valorGlucosa" placeholder="Valor de glucosa" required>
+        </div>
+        <div class="form-group">
+            <label for="unidadesInsulina">Unidades de Insulina:</label>
+            <input type="number" id="unidadesInsulina" placeholder="Unidades de insulina" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" placeholder="Descripción">
+        </div>
         <button onclick="anadirRegistro()">Añadir Registro</button>
 
         <table id="tablaRegistros">
@@ -78,8 +105,8 @@
             var tabla = document.getElementById('tablaRegistros');
             tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th></tr>';
 
-            registros.forEach(function(registro, index) {
-                var fila = tabla.insertRow(index + 1); // Inserta la fila en la posición correcta
+            registros.forEach(function(registro) {
+                var fila = tabla.insertRow(1); // Inserta la fila después del encabezado
                 fila.insertCell(0).innerHTML = registro.fecha;
                 fila.insertCell(1).innerHTML = registro.hora;
                 fila.insertCell(2).innerHTML = registro.accion;
@@ -99,4 +126,3 @@
     </script>
 </body>
 </html>
-
