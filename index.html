@@ -78,8 +78,8 @@
             var tabla = document.getElementById('tablaRegistros');
             tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th></tr>';
 
-            registros.forEach(function(registro) {
-                var fila = tabla.insertRow(1); // Inserta la fila después del encabezado
+            registros.forEach(function(registro, index) {
+                var fila = tabla.insertRow(index + 1); // Inserta la fila en la posición correcta
                 fila.insertCell(0).innerHTML = registro.fecha;
                 fila.insertCell(1).innerHTML = registro.hora;
                 fila.insertCell(2).innerHTML = registro.accion;
@@ -99,3 +99,4 @@
     </script>
 </body>
 </html>
+
