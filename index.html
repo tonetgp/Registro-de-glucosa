@@ -70,6 +70,15 @@
             display: block;
             margin-bottom: 5px;
         }
+        .delete-btn {
+            background-color: #ff6347; /* Rojo para el botón de eliminar */
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +121,7 @@
                 <th>Valor de Glucosa</th>
                 <th>Unidades de Insulina</th>
                 <th>Descripción</th>
+                <th>Eliminar</th>
             </tr>
             <!-- Los registros se insertarán aquí -->
         </table>
@@ -146,10 +156,10 @@
             var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
             var tabla = document.getElementById('tablaRegistros');
             // Limpiar la tabla, excepto el encabezado
-            tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th></tr>';
+            tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th><th>Eliminar</th></tr>';
 
             // Insertar cada registro en la parte superior de la tabla
-            registros.forEach(function(registro) {
+            registros.forEach(function(registro, index) {
                 var fila = tabla.insertRow(1); // Inserta la fila después del encabezado
                 fila.insertCell(0).innerHTML = registro.fecha;
                 fila.insertCell(1).innerHTML = registro.hora;
@@ -157,7 +167,16 @@
                 fila.insertCell(3).innerHTML = registro.valorGlucosa;
                 fila.insertCell(4).innerHTML = registro.unidadesInsulina;
                 fila.insertCell(5).innerHTML = registro.descripcion;
+                var deleteCell = fila.insertCell(6);
+                deleteCell.innerHTML = '<button class="delete-btn" onclick="eliminarRegistro(' + index + ')">Eliminar</button>';
             });
+        }
+
+        function eliminarRegistro(index) {
+            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
+            registros.splice(index, 1); // Elimina el registro seleccionado
+            localStorage.setItem('registrosGlucosa', JSON.stringify(registros));
+            actualizarTabla();
         }
 
         function limpiarFormulario() {
@@ -170,5 +189,4 @@
     </script>
 </body>
 </html>
-
 
