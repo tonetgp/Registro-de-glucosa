@@ -3,10 +3,10 @@
 <head>
     <title>Registro de Glucosa en Sangre e Insulina</title>
     <style>
-        /* Tus estilos aquí */
+        /* Estilos mejorados */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e6f2e6; /* Fondo en tono verde claro */
+            background-color: #e6f2e6;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -16,7 +16,7 @@
             min-height: 100vh;
         }
         h1 {
-            color: #2e8b57; /* Verde oscuro para el título */
+            color: #2e8b57;
             text-align: center;
         }
         .container {
@@ -40,21 +40,22 @@
             text-align: left;
         }
         th {
-            background-color: #a9dfbf; /* Verde claro para los encabezados de la tabla */
+            background-color: #a9dfbf;
             color: #333;
         }
         button {
-            background-color: #28a745; /* Verde botella para los botones */
+            background-color: #28a745;
             color: white;
             border: none;
             padding: 12px 24px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         button:hover {
-            background-color: #218838; /* Un verde más oscuro al pasar el ratón */
+            background-color: #218838;
+            transform: scale(1.05);
         }
         input, select {
             padding: 10px;
@@ -71,46 +72,26 @@
             margin-bottom: 5px;
         }
         .delete-btn {
-            background-color: #ff6347; /* Rojo para el botón de eliminar */
+            background-color: #ff6347;
             color: white;
             border: none;
             padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .delete-btn:hover {
+            background-color: #e53e30;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Registro de Glucosa en Sangre e Insulina</h1>
-        <div class="form-group">
-            <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" required>
-        </div>
-        <div class="form-group">
-            <label for="hora">Hora:</label>
-            <input type="time" id="hora" required>
-        </div>
-        <div class="form-group">
-            <label for="accion">Acción:</label>
-            <select id="accion">
-                <option value="Preprandial">Preprandial</option>
-                <option value="Posprandial">Posprandial</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="valorGlucosa">Valor de Glucosa:</label>
-            <input type="number" id="valorGlucosa" placeholder="Valor de glucosa" required>
-        </div>
-        <div class="form-group">
-            <label for="unidadesInsulina">Unidades de Insulina:</label>
-            <input type="number" id="unidadesInsulina" placeholder="Unidades de insulina" required>
-        </div>
-        <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <input type="text" id="descripcion" placeholder="Descripción">
-        </div>
+        <!-- Formulario para añadir registros -->
+        <!-- ... (resto del formulario) ... -->
         <button onclick="anadirRegistro()">Añadir Registro</button>
 
         <table id="tablaRegistros">
@@ -128,66 +109,8 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', cargarRegistros);
-
-        function anadirRegistro() {
-            var registro = {
-                fecha: document.getElementById('fecha').value,
-                hora: document.getElementById('hora').value,
-                accion: document.getElementById('accion').value,
-                valorGlucosa: document.getElementById('valorGlucosa').value,
-                unidadesInsulina: document.getElementById('unidadesInsulina').value,
-                descripcion: document.getElementById('descripcion').value
-            };
-
-            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
-            registros.unshift(registro); // Cambiado de push a unshift
-            localStorage.setItem('registrosGlucosa', JSON.stringify(registros));
-
-            actualizarTabla();
-            limpiarFormulario();
-        }
-
-        function cargarRegistros() {
-            actualizarTabla();
-        }
-
-        function actualizarTabla() {
-            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
-            var tabla = document.getElementById('tablaRegistros');
-            // Limpiar la tabla, excepto el encabezado
-            tabla.innerHTML = '<tr><th>Fecha</th><th>Hora</th><th>Acción</th><th>Valor de Glucosa</th><th>Unidades de Insulina</th><th>Descripción</th><th>Eliminar</th></tr>';
-
-            // Insertar cada registro en la parte superior de la tabla
-            registros.forEach(function(registro, index) {
-                var fila = tabla.insertRow(1); // Inserta la fila después del encabezado
-                fila.insertCell(0).innerHTML = registro.fecha;
-                fila.insertCell(1).innerHTML = registro.hora;
-                fila.insertCell(2).innerHTML = registro.accion;
-                fila.insertCell(3).innerHTML = registro.valorGlucosa;
-                fila.insertCell(4).innerHTML = registro.unidadesInsulina;
-                fila.insertCell(5).innerHTML = registro.descripcion;
-                var deleteCell = fila.insertCell(6);
-                deleteCell.innerHTML = '<button class="delete-btn" onclick="eliminarRegistro(' + index + ')">Eliminar</button>';
-            });
-        }
-
-        function eliminarRegistro(index) {
-            var registros = JSON.parse(localStorage.getItem('registrosGlucosa')) || [];
-            registros.splice(index, 1); // Elimina el registro seleccionado
-            localStorage.setItem('registrosGlucosa', JSON.stringify(registros));
-            actualizarTabla();
-        }
-
-        function limpiarFormulario() {
-            document.getElementById('fecha').value = '';
-            document.getElementById('hora').value = '';
-            document.getElementById('valorGlucosa').value = '';
-            document.getElementById('unidadesInsulina').value = '';
-            document.getElementById('descripcion').value = '';
-        }
+        // Tus funciones JavaScript aquí
+        // ... (funciones JavaScript que ya proporcionaste) ...
     </script>
 </body>
 </html>
-
-
